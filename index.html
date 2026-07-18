@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RVH — Analytics Engineering &amp; Creative Technology Consulting</title>
+<meta name="description" content="RVH — analytics engineering consulting: dbt, SQL, Snowflake, and data pipelines, with a full-stack and creative-technologist edge.">
+<meta name="theme-color" content="#12141a">
+<meta name="author" content="RVH">
+<link rel="icon" href="data:,">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="RVH — Analytics Engineering &amp; Creative Technology Consulting">
+<meta property="og:description" content="Analytics engineering consulting — dbt, SQL, Snowflake, Airflow — plus full-stack and creative-technology work.">
+<meta property="og:url" content="https://consult-rah.com/">
+<meta name="twitter:card" content="summary">
+
+<style>
+  :root{
+    --bg: #12141a;
+    --bg-raised: #181b22;
+    --border: #262b35;
+    --text: #e7e9ee;
+    --text-dim: #9aa1b2;
+    --text-faint: #656d80;
+    --accent: #7ee3c3;
+    --accent-dim: #3f6f61;
+    --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    --maxw: 880px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.55;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  .skip-link{
+    position:absolute; left:-999px; top:auto;
+  }
+  .skip-link:focus{
+    left:16px; top:16px; background:var(--accent); color:#0a0c10;
+    padding:8px 14px; border-radius:6px; z-index:100;
+  }
+
+  /* Utility bar */
+  .utility-bar{
+    border-bottom:1px solid var(--border);
+    background:var(--bg-raised);
+  }
+  .utility-bar .inner{
+    max-width:var(--maxw); margin:0 auto; padding:10px 24px;
+    display:flex; align-items:center; justify-content:flex-end; gap:16px;
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+  }
+  .utility-bar button{
+    background:none; border:1px solid var(--border); color:var(--text-dim);
+    font-family:var(--mono); font-size:12.5px; padding:5px 10px; border-radius:5px;
+    cursor:pointer;
+  }
+  .utility-bar button:hover{ color:var(--text); border-color:var(--accent-dim); }
+
+  main{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+
+  /* Hero */
+  .hero{ padding:64px 0 40px; border-bottom:1px solid var(--border); }
+  .status-pill{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
+    border:1px solid var(--border); border-radius:999px; padding:5px 12px;
+    margin-bottom:24px;
+  }
+  .status-pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .hero h1{
+    font-size:clamp(2.1rem, 5vw, 3rem); margin:0 0 8px; letter-spacing:-0.02em;
+  }
+  .hero .tagline{ color:var(--text-dim); font-size:1.05rem; margin:0 0 20px; }
+  .hero p.lede{ max-width:66ch; color:var(--text); font-size:1rem; margin:0 0 24px; }
+  .hero p.lede .fill{ color: var(--text-faint); font-style: italic; }
+  .hero .links{ display:flex; flex-wrap:wrap; gap:12px; }
+  .btn{
+    font-family:var(--mono); font-size:13px; border-radius:6px; padding:9px 16px;
+    border:1px solid var(--border); color:var(--text);
+  }
+  .btn.primary{ background:var(--accent); color:#0a0c10; border-color:var(--accent); font-weight:600; }
+  .btn.primary:hover{ text-decoration:none; opacity:.9; }
+  .btn:hover{ border-color:var(--accent-dim); text-decoration:none; }
+
+  /* Section shell */
+  section.block{ padding:48px 0; border-bottom:1px solid var(--border); }
+  section.block:last-of-type{ border-bottom:none; }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:24px; }
+  .section-num{ font-family:var(--mono); color:var(--accent); font-size:13px; }
+  .section-head h2{ font-size:1.3rem; margin:0; letter-spacing:-0.01em; }
+
+  /* Contact card */
+  .contact-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px;
+  }
+  .contact-card{
+    background:var(--bg-raised); border:1px solid var(--border); border-radius:10px; padding:20px;
+  }
+  .contact-card .label{ font-family:var(--mono); font-size:11.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.06em; }
+  .contact-card .value{ margin-top:4px; font-size:.98rem; }
+
+  /* Services / expertise cards */
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+  .card{
+    background:var(--bg-raised); border:1px solid var(--border); border-radius:10px; padding:20px;
+  }
+  .card h3{ margin:0 0 8px; font-size:1.02rem; }
+  .card p{ margin:0; color:var(--text-dim); font-size:.93rem; }
+
+  /* Pills */
+  .pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+    border:1px solid var(--border); border-radius:999px; padding:5px 12px;
+  }
+
+  /* Experience */
+  .exp-item{ margin-bottom:28px; }
+  .exp-item:last-child{ margin-bottom:0; }
+  .exp-head{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; margin-bottom:6px; }
+  .exp-head h3{ margin:0; font-size:1.02rem; }
+  .exp-meta{ font-family:var(--mono); font-size:12.5px; color:var(--text-faint); }
+  .exp-item ul{ margin:8px 0 0; padding-left:18px; color:var(--text-dim); font-size:.93rem; }
+  .exp-item li{ margin-bottom:4px; }
+
+  /* Projects */
+  .project-list{ display:grid; gap:14px; }
+  .project{
+    display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+    border:1px solid var(--border); border-radius:8px; padding:14px 18px;
+    background:var(--bg-raised);
+  }
+  .project .name{ font-family:var(--mono); font-size:.92rem; }
+  .project .desc{ color:var(--text-dim); font-size:.88rem; }
+
+  footer{
+    padding:32px 0 60px; color:var(--text-faint); font-size:12.5px; font-family:var(--mono);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  .placeholder-note{
+    font-size:.8rem; color:#e0a45a; border:1px dashed #6b4b23; border-radius:6px;
+    padding:8px 12px; margin-top:10px; font-family:var(--mono);
+  }
+
+  @media (max-width:640px){
+    .utility-bar .inner{ justify-content:center; flex-wrap:wrap; }
+    .hero{ padding:48px 0 32px; }
+    footer{ flex-direction:column; }
+  }
+
+  @media print{
+    .utility-bar{ display:none; }
+    body{ background:#fff; color:#111; }
+    .hero, section.block{ border-color:#ccc; }
+    a{ color:#111; text-decoration:underline; }
+    .contact-card, .card, .project{ background:#fff; border-color:#ccc; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="utility-bar">
+  <div class="inner">
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+    <button type="button" id="copyEmailBtn">Copy email</button>
+  </div>
+</div>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="status-pill"><span class="dot"></span> Available for select engagements</div>
+    <h1>RVH</h1>
+    <p class="tagline">Analytics Engineer · Data Engineering · Creative Technologist</p>
+    <p class="lede">
+      <span class="fill">[1–2 sentence intro — who you help, what you're known for. e.g. "I help teams turn messy
+      data into trustworthy dbt models and dashboards, and build the pipelines that keep them that way."]</span>
+    </p>
+    <div class="links">
+      <a class="btn primary" href="mailto:consult.rah.ny@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/rahmcrae" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="#">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- 01 CONTACT -->
+  <section class="block" id="contact">
+    <div class="section-head"><span class="section-num">01</span><h2>Contact</h2></div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="label">Email</div>
+        <div class="value"><a href="mailto:consult.rah.ny@gmail.com">consult.rah.ny@gmail.com</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="label">GitHub</div>
+        <div class="value"><a href="https://github.com/rahmcrae" target="_blank" rel="noopener">github.com/rahmcrae</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="label">LinkedIn</div>
+        <div class="value"><span class="fill">[add LinkedIn URL]</span></div>
+      </div>
+      <div class="contact-card">
+        <div class="label">Location</div>
+        <div class="value"><span class="fill">[city / remote / timezone]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 SERVICES -->
+  <section class="block" id="services">
+    <div class="section-head"><span class="section-num">02</span><h2>Services</h2></div>
+    <div class="card-grid">
+      <div class="card">
+        <h3>Analytics Engineering</h3>
+        <p>dbt model design, testing, and documentation; SQL modeling conventions; Snowflake warehouse design.</p>
+      </div>
+      <div class="card">
+        <h3>Data Pipelines &amp; Orchestration</h3>
+        <p>Airflow DAGs, ingestion pipelines, and AWS-based data infrastructure built for reliability.</p>
+      </div>
+      <div class="card">
+        <h3>Dashboards &amp; Reporting</h3>
+        <p><span class="fill">[describe BI/reporting engagements — tools, typical deliverables]</span></p>
+      </div>
+      <div class="card">
+        <h3>Full-Stack &amp; Creative Tech</h3>
+        <p><span class="fill">[describe web/full-stack or creative-technology projects you take on]</span></p>
+      </div>
+    </div>
+    <div class="placeholder-note">Confirm which services you actually want to advertise — this is a starting draft based on your analytics engineering background.</div>
+  </section>
+
+  <!-- 03 EXPERTISE -->
+  <section class="block" id="expertise">
+    <div class="section-head"><span class="section-num">03</span><h2>Core Expertise</h2></div>
+    <div class="pills">
+      <span class="pill">SQL</span>
+      <span class="pill">Python</span>
+      <span class="pill">dbt</span>
+      <span class="pill">Snowflake</span>
+      <span class="pill">Airflow</span>
+      <span class="pill">AWS</span>
+      <span class="pill">JavaScript</span>
+      <span class="pill">TypeScript</span>
+      <span class="pill">Data Modeling</span>
+      <span class="pill">Full-Stack Dev</span>
+    </div>
+    <div class="placeholder-note">Pulled from your saved skill context — edit to match your actual stack and proficiency.</div>
+  </section>
+
+  <!-- 04 EXPERIENCE -->
+  <section class="block" id="experience">
+    <div class="section-head"><span class="section-num">04</span><h2>Experience</h2></div>
+    <div class="exp-item">
+      <div class="exp-head">
+        <h3 class="fill">[Company / Client name]</h3>
+        <span class="exp-meta fill">[Title · dates · remote/location]</span>
+      </div>
+      <ul>
+        <li class="fill">[Impact bullet — what you built or improved, with a number if possible]</li>
+        <li class="fill">[Impact bullet]</li>
+      </ul>
+    </div>
+    <div class="placeholder-note">Send me your work history (or a resume/LinkedIn export) and I'll turn it into bullets in this format.</div>
+  </section>
+
+  <!-- 05 PROJECTS -->
+  <section class="block" id="projects">
+    <div class="section-head"><span class="section-num">05</span><h2>Selected Projects</h2></div>
+    <div class="project-list">
+      <div class="project">
+        <span class="name fill">[project name / repo link]</span>
+        <span class="desc fill">[one-line description]</span>
+      </div>
+    </div>
+    <div class="placeholder-note">
+      I can see public repos under github.com/rahmcrae (e.g. trading-agent, rvh-music-samples) — tell me which ones
+      you want featured and I'll pull in real descriptions.
+    </div>
+  </section>
+
+  <footer>
+    <span>© <span id="year"></span> RVH</span>
+    <span>Built with vanilla HTML/CSS/JS · Hosted on GitHub Pages</span>
+  </footer>
+
+</main>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const copyBtn = document.getElementById('copyEmailBtn');
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('consult.rah.ny@gmail.com');
+      const original = copyBtn.textContent;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = original; }, 1500);
+    } catch (e) {
+      window.location.href = 'mailto:consult.rah.ny@gmail.com';
+    }
+  });
+</script>
+
+</body>
+</html>
