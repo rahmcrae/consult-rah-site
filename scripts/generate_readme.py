@@ -92,3 +92,35 @@ def render_languages(resume: dict) -> str:
         return f"## Languages\n\n- {TODO}\n"
     lines = [f"- {_text(lang.get('name'))} — {_text(lang.get('level'))}" for lang in languages]
     return "## Languages\n\n" + "\n".join(lines) + "\n"
+
+
+def render_meta() -> str:
+    return (
+        "## Repository\n\n"
+        f"![CI](https://github.com/{REPO_SLUG}/actions/workflows/ci.yml/badge.svg) "
+        f"[![codecov](https://codecov.io/gh/{REPO_SLUG}/branch/main/graph/badge.svg)]"
+        f"(https://codecov.io/gh/{REPO_SLUG}) "
+        f"[![Known Vulnerabilities](https://snyk.io/test/github/{REPO_SLUG}/badge.svg)]"
+        f"(https://snyk.io/test/github/{REPO_SLUG})\n\n"
+        "This README is generated from `resume.yaml` — do not hand-edit. "
+        "Run `uv run scripts/generate_readme.py` after changing `resume.yaml`, "
+        "or just commit — the pre-commit hook does it for you. "
+        "See `CLAUDE.md` for repo/dev docs.\n"
+    )
+
+
+def render_readme(resume: dict) -> str:
+    sections = [
+        render_header(resume),
+        render_summary(resume),
+        render_contact(resume),
+        render_bullet_section("At a Glance", resume.get("at_a_glance")),
+        render_bullet_section("Core Expertise", resume.get("core_expertise")),
+        render_experience(resume),
+        render_projects(resume),
+        render_bullet_section("Education", resume.get("education")),
+        render_languages(resume),
+        render_bullet_section("Tech Stack", resume.get("tech_stack")),
+        render_meta(),
+    ]
+    return "\n".join(sections)

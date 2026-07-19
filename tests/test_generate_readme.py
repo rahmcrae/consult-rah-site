@@ -11,7 +11,9 @@ from scripts.generate_readme import (
     render_experience,
     render_header,
     render_languages,
+    render_meta,
     render_projects,
+    render_readme,
     render_summary,
 )
 
@@ -67,6 +69,10 @@ FULL_RESUME.update(
             }
         ],
         "languages": [{"name": "English", "level": "Native"}],
+        "at_a_glance": ["8 years analytics engineering", "Led 3 platform migrations"],
+        "core_expertise": ["SQL", "Python", "dbt"],
+        "education": ["B.S. Computer Science, Somewhere State"],
+        "tech_stack": ["Python", "TypeScript", "AWS"],
     }
 )
 
@@ -141,3 +147,32 @@ def test_render_projects_without_url_omits_link() -> None:
 )
 def test_render_languages(resume: dict, expect_todo: bool) -> None:
     assert (TODO in render_languages(resume)) is expect_todo
+
+
+def test_render_meta_has_badges_and_source_note() -> None:
+    result = render_meta()
+    assert "codecov.io" in result
+    assert "snyk.io" in result
+    assert "resume.yaml" in result
+
+
+def test_render_readme_full_has_no_todo_markers() -> None:
+    assert TODO not in render_readme(FULL_RESUME)
+
+
+def test_render_readme_empty_has_todo_in_every_section() -> None:
+    result = render_readme(EMPTY_RESUME)
+    for heading in (
+        "Summary", "Contact", "At a Glance", "Core Expertise",
+        "Experience", "Projects", "Education", "Languages", "Tech Stack",
+    ):
+        assert f"## {heading}" in result
+    assert result.count(TODO) >= 9
+
+
+def test_render_readme_partial_mixed_content() -> None:
+    resume = {"name": "Rah McRae", "core_expertise": ["SQL"]}
+    result = render_readme(resume)
+    assert "Rah McRae" in result
+    assert "SQL" in result
+    assert TODO in result
