@@ -124,3 +124,13 @@ def render_readme(resume: dict) -> str:
         render_meta(),
     ]
     return "\n".join(sections)
+
+
+def main(repo_root: Path | None = None) -> None:
+    repo_root = repo_root or Path(__file__).resolve().parent.parent
+    resume = load_resume(repo_root / "resume.yaml")
+    (repo_root / "README.md").write_text(render_readme(resume))
+
+
+if __name__ == "__main__":  # pragma: no cover
+    main()

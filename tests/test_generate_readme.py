@@ -6,6 +6,7 @@ import yaml
 from scripts.generate_readme import (
     TODO,
     load_resume,
+    main,
     render_bullet_section,
     render_contact,
     render_experience,
@@ -176,3 +177,17 @@ def test_render_readme_partial_mixed_content() -> None:
     assert "Rah McRae" in result
     assert "SQL" in result
     assert TODO in result
+
+
+def test_main_writes_readme_from_resume(tmp_path: Path) -> None:
+    (tmp_path / "resume.yaml").write_text(yaml.safe_dump(FULL_RESUME))
+    main(repo_root=tmp_path)
+    readme = (tmp_path / "README.md").read_text()
+    assert "Rah McRae" in readme
+    assert TODO not in readme
+
+
+def test_main_missing_resume_raises_and_writes_nothing(tmp_path: Path) -> None:
+    with pytest.raises(FileNotFoundError):
+        main(repo_root=tmp_path)
+    assert not (tmp_path / "README.md").exists()
