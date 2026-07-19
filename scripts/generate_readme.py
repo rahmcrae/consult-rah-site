@@ -29,3 +29,29 @@ def _list(value: object) -> list:
     if not value:
         return []
     return list(value)
+
+
+def render_header(resume: dict) -> str:
+    name = _text(resume.get("name"))
+    title = _text(resume.get("title"))
+    location = _text(resume.get("location"))
+    return f"# {name}\n\n**{title}** · {location}\n"
+
+
+def render_summary(resume: dict) -> str:
+    return f"## Summary\n\n{_text(resume.get('summary'))}\n"
+
+
+def render_contact(resume: dict) -> str:
+    contact = resume.get("contact") or {}
+    linkedin = _text(contact.get("linkedin"))
+    email = _text(contact.get("email"))
+    return f"## Contact\n\n- LinkedIn: {linkedin}\n- Email: {email}\n"
+
+
+def render_bullet_section(title: str, items: object) -> str:
+    items = _list(items)
+    if not items:
+        return f"## {title}\n\n- {TODO}\n"
+    body = "\n".join(f"- {item}" for item in items)
+    return f"## {title}\n\n{body}\n"
