@@ -1,40 +1,46 @@
-# consult-rah.com
+# _TODO_
 
-Personal/consulting site for RVH — analytics engineering, data engineering, and creative technology.
-Single self-contained static site, no build step, deployed on GitHub Pages with a custom domain.
+**_TODO_** · _TODO_
 
-Design pattern: one-file `index.html`, numbered sections, dark theme, print-to-PDF, copy-email
-button.
+## Summary
 
-## Stack
+_TODO_
 
-- Plain HTML/CSS/JS — everything lives in `index.html` (no frameworks, no build tools, no npm install).
-- Hosted on GitHub Pages.
-- Custom domain: `consult-rah.com` (see `CNAME` and `DEPLOYMENT.md`).
+## Contact
 
-## Local preview
+- LinkedIn: _TODO_
+- Email: _TODO_
 
-From this folder:
+## At a Glance
 
-```bash
-python3 -m http.server 8000
-```
+- _TODO_
 
-Then open http://localhost:8000 in a browser. No build step — editing `index.html` and refreshing is
-the whole workflow.
+## Core Expertise
 
-## Files
+- _TODO_
 
-| File | Purpose |
-|---|---|
-| `index.html` | The entire site |
-| `CNAME` | Tells GitHub Pages to serve this repo at consult-rah.com |
-| `robots.txt` | Crawler rules |
-| `sitemap.xml` | Single-URL sitemap |
-| `CONTENT-NEEDED.md` | Checklist of copy still needed to replace placeholders |
-| `DEPLOYMENT.md` | Step-by-step: create the GitHub repo, enable Pages, point DNS |
+## Experience
 
-## Status
+- _TODO_
 
-Structural scaffold is done. Sections marked with a `[bracketed, italic]` placeholder and an amber
-"Confirm..." note still need real content — see `CONTENT-NEEDED.md`.
+## Projects
+
+- _TODO_
+
+## Education
+
+- _TODO_
+
+## Languages
+
+- _TODO_
+
+## Tech Stack
+
+- _TODO_
+
+## Repository
+
+![CI](https://github.com/rahmcrae/consult-rah-site/actions/workflows/ci.yml/badge.svg) [![codecov](https://codecov.io/gh/rahmcrae/consult-rah-site/branch/main/graph/badge.svg)](https://codecov.io/gh/rahmcrae/consult-rah-site) [![Known Vulnerabilities](https://snyk.io/test/github/rahmcrae/consult-rah-site/badge.svg)](https://snyk.io/test/github/rahmcrae/consult-rah-site)
+
+This README is generated from `resume.yaml` — do not hand-edit. Run `uv run scripts/generate_readme.py` after changing `resume.yaml`, or just commit — the pre-commit hook does it for you. See `CLAUDE.md` for repo/dev docs.
