@@ -55,3 +55,40 @@ def render_bullet_section(title: str, items: object) -> str:
         return f"## {title}\n\n- {TODO}\n"
     body = "\n".join(f"- {item}" for item in items)
     return f"## {title}\n\n{body}\n"
+
+
+def render_experience(resume: dict) -> str:
+    roles = _list(resume.get("experience"))
+    if not roles:
+        return f"## Experience\n\n- {TODO}\n"
+    blocks = []
+    for role in roles:
+        company = _text(role.get("company"))
+        title = _text(role.get("title"))
+        dates = _text(role.get("dates"))
+        bullets = _list(role.get("bullets"))
+        bullet_lines = "\n".join(f"- {b}" for b in bullets) if bullets else f"- {TODO}"
+        blocks.append(f"### {title}, {company} ({dates})\n\n{bullet_lines}")
+    return "## Experience\n\n" + "\n\n".join(blocks) + "\n"
+
+
+def render_projects(resume: dict) -> str:
+    projects = _list(resume.get("projects"))
+    if not projects:
+        return f"## Projects\n\n- {TODO}\n"
+    lines = []
+    for project in projects:
+        name = _text(project.get("name"))
+        url = project.get("url")
+        description = _text(project.get("description"))
+        label = f"[{name}]({url})" if url else name
+        lines.append(f"- **{label}** — {description}")
+    return "## Projects\n\n" + "\n".join(lines) + "\n"
+
+
+def render_languages(resume: dict) -> str:
+    languages = _list(resume.get("languages"))
+    if not languages:
+        return f"## Languages\n\n- {TODO}\n"
+    lines = [f"- {_text(lang.get('name'))} — {_text(lang.get('level'))}" for lang in languages]
+    return "## Languages\n\n" + "\n".join(lines) + "\n"
