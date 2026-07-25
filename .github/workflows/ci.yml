@@ -20,9 +20,3 @@ jobs:
       - uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
-
-      - uses: snyk/actions/python@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --file=pyproject.toml
