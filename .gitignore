@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 .coverage
 .pytest_cache/
+.private/
+index-draft.html
