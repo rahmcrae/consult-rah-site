@@ -1,2 +1,7 @@
 .DS_Store
 *.log
+.venv/
+__pycache__/
+*.pyc
+.coverage
+.pytest_cache/
