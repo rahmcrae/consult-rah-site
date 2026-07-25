@@ -1,8 +1,0 @@
-#!/bin/sh
-# Regenerate README.md from resume.yaml whenever resume.yaml is being committed.
-set -e
-
-if git diff --cached --name-only | grep -q '^resume\.yaml$'; then
-    uv run scripts/generate_readme.py
-    git add README.md
-fi
