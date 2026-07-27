@@ -29,7 +29,7 @@
     --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
     --serif: ui-serif, "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
-    --maxw: 1120px;
+    --maxw: 1200px;
   }
 
   *{box-sizing:border-box;}
@@ -70,7 +70,7 @@
 
   /* Hero + Contact split (top of page) */
   .hero-split{
-    display:grid; grid-template-columns:1fr 300px; gap:40px; align-items:start;
+    display:grid; grid-template-columns:1fr clamp(300px, 30vw, 380px); gap:40px; align-items:start;
     padding:56px 0 40px; border-bottom:1px solid var(--border);
   }
   .status-pill{
@@ -105,7 +105,7 @@
   .btn:hover{ border-color:var(--accent-dim); text-decoration:none; }
 
   /* Generic split layout (also used around Experience) */
-  .exp-split{ display:grid; grid-template-columns:1fr 300px; gap:40px; align-items:start; }
+  .exp-split{ display:grid; grid-template-columns:1fr clamp(300px, 30vw, 380px); gap:40px; align-items:start; }
   .side-col{ display:flex; flex-direction:column; gap:20px; }
 
   /* Section shell */
@@ -192,9 +192,10 @@
     transition:background .15s ease, transform .15s ease;
   }
   .exp-item:hover::before{ background:var(--accent); transform:scale(1.2); }
-  .exp-head{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; margin-bottom:6px; }
+  .exp-head{ display:flex; flex-direction:column; gap:2px; margin-bottom:6px; }
   .exp-head h3{ margin:0; font-size:1.05rem; font-weight:700; }
   .exp-meta{ font-family:var(--mono); font-size:12px; color:var(--text-faint); }
+  .exp-blurb{ margin:4px 0 0; font-size:.85rem; font-style:italic; color:var(--text-faint); }
   .exp-item ul{ margin:8px 0 0; padding-left:18px; color:var(--text-dim); font-size:.92rem; }
   .exp-item li{ margin-bottom:4px; }
 
@@ -266,8 +267,9 @@
       <h1><span class="rainbow-name">Rah</span> A. McRae</h1>
       <p class="tagline">Senior Analytics Engineer · Independent Consultant · Creative Technologist</p>
       <p class="lede">
-        5+ years building data models, semantic layers, and pipelines on dbt, Snowflake, and Airflow. Senior
-        Analytics Engineer at Fetch. Independent consultant as Consult Rah.
+        5+ years in data transformation, warehousing, and orchestration — turning raw data into models and
+        semantic layers teams can trust. Senior Analytics Engineer at Fetch. Independent consultant as Consult
+        Rah.
       </p>
       <div class="links">
         <a class="btn primary" href="mailto:consult.rah.ny@gmail.com">Email me</a>
@@ -314,7 +316,7 @@
       Three things define how Rah works: resilience — treating obstacles as a chance to grow rather than a
       setback; a genuine enthusiasm for learning that keeps them a perpetual student; and a synergistic,
       collaborative style built on listening and empathy. Off the clock: creative-technology pursuits, the
-      outdoors, community building, traveling, and being a cat (and Yorkie) parent.
+      outdoors, community building, traveling, and being a parent to two cats and a Yorkie.
     </p>
   </section>
 
@@ -355,9 +357,11 @@
               <h3>📈 Fetch</h3>
               <span class="exp-meta">Senior Analytics Engineer · Aug 2020 – Present · NYC Metro / Remote</span>
             </div>
+            <p class="exp-blurb">"America's Rewards App" — users earn points shopping, scanning receipts, and playing games across 600+ brands, redeemable for gift cards.</p>
             <ul>
-              <li>Progressed Data Analyst → Senior Analytics Engineer over 5+ years. Own dbt/Snowflake data modeling and Airflow orchestration for a consumer loyalty and rewards platform.</li>
-              <li>Ship dashboards and reporting (Grafana, Tableau) that partner and revenue teams check daily. Technical lead on partner-facing analytics engagements.</li>
+              <li>Progressed Data Analyst → Senior Analytics Engineer over 5+ years. Own dbt/Snowflake data modeling and Airflow orchestration for a platform serving 12M+ daily active users, plus real-time pipelines on Kafka and Apache Flink for low-latency event streaming.</li>
+              <li>Cut batch processing costs by $300/day and infrastructure deploy time via Terraform (20+ repeatable deployments). Automated data quality testing (dbt tests, custom SQL) cut incident response time ~20%.</li>
+              <li>Ship dashboards and reporting (Grafana, Tableau) that partner and revenue teams check daily. Led cross-team data model standardization, aligning business logic and metric definitions org-wide.</li>
             </ul>
           </div>
           <div class="exp-item">
@@ -365,6 +369,7 @@
               <h3>🧑🏽‍🏫 COOP</h3>
               <span class="exp-meta">Senior Data Analytics Instructor &amp; Executive Career Coach · 2018 – 2021 · New York</span>
             </div>
+            <p class="exp-blurb">A nonprofit fellowship equipping first-generation and low-income college grads with the skills and connections for careers in data, marketing, and finance.</p>
             <ul>
               <li>Taught SQL, Excel, Tableau, Power BI, and Python to career-changers moving into data analytics. Instructor → Senior Instructor → Executive Coach.</li>
               <li>Designed curriculum. Led career coaching and project management across multiple cohorts.</li>
@@ -372,11 +377,34 @@
           </div>
           <div class="exp-item">
             <div class="exp-head">
-              <h3>📣 MediaCom, Microsoft, Havas &amp; Mindshare</h3>
-              <span class="exp-meta">Marketing Science &amp; AdTech Analytics · 2017 – 2020 · New York</span>
+              <h3>📣 MediaCom</h3>
+              <span class="exp-meta">Senior Analyst, Business Science &amp; Analytics · Mar 2019 – Aug 2020 · New York</span>
             </div>
+            <p class="exp-blurb">A global media agency under WPP/GroupM (since merged into EssenceMediacom), managing ad buying and marketing science for global brands.</p>
             <ul>
-              <li>Built reporting automation and analytics for enterprise accounts — MARS, Microsoft Search Advertising, LVMH — across pharma, retail, banking, and auto.</li>
+              <li>Engineered end-to-end data pipelines integrating multi-channel sources — display, online video, search, e-commerce, social, and programmatic — for the MARS account (Temptations, IAMS, Sheba).</li>
+              <li>Automated reporting and analysis workflows with Alteryx, Microsoft SQL Server, and Tableau, turning insights into campaign optimization recommendations across channels.</li>
+            </ul>
+          </div>
+          <div class="exp-item">
+            <div class="exp-head">
+              <h3>📣 Microsoft Advertising</h3>
+              <span class="exp-meta">Account Strategist (Contractor) · Apr 2018 – Mar 2019 · New York</span>
+            </div>
+            <p class="exp-blurb">Microsoft's digital advertising platform — search, display, and video ads across the Microsoft Advertising Network (formerly Bing Ads).</p>
+            <ul>
+              <li>Built interactive dashboards (DAX, Azure, Power BI) that powered sales pitches and improved client engagement across pharma, retail, banking, and auto verticals.</li>
+              <li>Monitored account health for top-tier clients across ~5 verticals; optimization insights contributed to the team exceeding its Q1 2019 revenue quota.</li>
+            </ul>
+          </div>
+          <div class="exp-item">
+            <div class="exp-head">
+              <h3>📣 Havas</h3>
+              <span class="exp-meta">Analyst, Marketing Science &amp; Data Consulting · Aug 2017 – Apr 2018 · New York</span>
+            </div>
+            <p class="exp-blurb">A global communications and marketing services group, spanning creative, media, and data consulting for brands worldwide.</p>
+            <ul>
+              <li>Supported the LVMH account — BVLGARI, Moët &amp; Chandon, Veuve Clicquot, Celine, Loewe, Marc Jacobs, Kenzo — on marketing science and data consulting engagements.</li>
             </ul>
           </div>
         </div>
@@ -397,9 +425,9 @@
         <div class="summary-block">
           <p>
             🧾 <strong>Summary:</strong> Senior Analytics Engineer with 15+ years in data, 5+ specifically in
-            analytics engineering — dbt, Snowflake, Airflow, semantic layers, and the AI-ready foundations that
-            sit under them. Also an independent consultant, a former data analytics instructor, and a
-            mostly-willing employee of two cats and a Yorkie.
+            analytics engineering — data transformation, warehousing, orchestration, semantic layers, and the
+            AI-ready foundations that sit under them. Also an independent consultant, a former data analytics
+            instructor, and a mostly-willing employee of two cats and a Yorkie.
           </p>
         </div>
       </section>
@@ -432,18 +460,24 @@
 
       <div class="side-card">
         <div class="side-label">🛠️ Tools &amp; Platforms</div>
-        <div class="skill-row"><span class="skill-name">AI Enablement</span><div class="skill-track"><div class="skill-fill" style="width:80%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Airflow</span><div class="skill-track"><div class="skill-fill" style="width:85%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Alteryx</span><div class="skill-track"><div class="skill-fill" style="width:60%"></div></div></div>
         <div class="skill-row"><span class="skill-name">AWS</span><div class="skill-track"><div class="skill-fill" style="width:80%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Data Modeling</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
         <div class="skill-row"><span class="skill-name">dbt</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Grafana</span><div class="skill-track"><div class="skill-fill" style="width:75%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Hex</span><div class="skill-track"><div class="skill-fill" style="width:60%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Power BI</span><div class="skill-track"><div class="skill-fill" style="width:80%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Semantic Layer</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Snowflake</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Tableau</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-label">🧩 Skills</div>
+        <div class="skill-row"><span class="skill-name">AI Enablement</span><div class="skill-track"><div class="skill-fill" style="width:80%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Communication</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Data Modeling</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Problem Solving</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Semantic Layer</span><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
       </div>
     </aside>
   </div>
