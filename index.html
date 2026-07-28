@@ -42,6 +42,7 @@
     line-height:1.55;
     font-size:16px;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
   a{color:var(--accent); text-decoration:none;}
   a:hover{text-decoration:underline;}
@@ -73,6 +74,7 @@
     display:grid; grid-template-columns:1fr clamp(300px, 30vw, 380px); gap:40px; align-items:start;
     padding:56px 0 40px; border-bottom:1px solid var(--border);
   }
+  .hero-split > *{ min-width:0; }
   .status-pill{
     display:inline-flex; align-items:center; gap:8px;
     font-family:var(--mono); font-size:12.5px; color:var(--text-dim);
@@ -105,8 +107,16 @@
   .btn:hover{ border-color:var(--accent-dim); text-decoration:none; }
 
   /* Generic split layout (also used around Experience) */
-  .exp-split{ display:grid; grid-template-columns:1fr clamp(300px, 30vw, 380px); gap:40px; align-items:start; }
-  .side-col{ display:flex; flex-direction:column; gap:20px; }
+  .exp-split{
+    display:grid; grid-template-columns:1fr clamp(300px, 30vw, 380px); gap:40px; align-items:start;
+    grid-template-areas:
+      "exp  side"
+      "proj side";
+  }
+  .exp-split > *{ min-width:0; }
+  .exp-main{ grid-area:exp; }
+  #projects{ grid-area:proj; }
+  .side-col{ grid-area:side; display:flex; flex-direction:column; gap:20px; }
 
   /* Section shell */
   section.block{ padding:48px 0; border-bottom:1px solid var(--border); }
@@ -148,7 +158,7 @@
 
   .contact-list{ margin:0; display:grid; gap:12px; }
   .contact-list dt{ font-family:var(--mono); font-size:10.5px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.05em; }
-  .contact-list dd{ margin:2px 0 0; font-size:.92rem; }
+  .contact-list dd{ margin:2px 0 0; font-size:.92rem; overflow-wrap:break-word; }
 
   /* Services cards */
   .services-intro{ max-width:66ch; color:var(--text-dim); margin:0 0 24px; }
@@ -165,10 +175,12 @@
   .skill-row{ display:grid; grid-template-columns:auto 1fr; align-items:center; gap:12px; margin-bottom:12px; }
   .skill-row:last-child{ margin-bottom:0; }
   .skill-name{ font-family:var(--mono); font-size:12px; color:var(--text-dim); white-space:nowrap; }
-  .skill-track{ height:6px; border-radius:3px; background:var(--border); overflow:hidden; }
+  .skill-track{ height:7px; border-radius:2px; background:var(--border); overflow:hidden; }
   .skill-fill{
-    height:100%; border-radius:3px;
-    background:linear-gradient(90deg, var(--accent-dim), var(--accent));
+    height:100%; border-radius:2px;
+    background:repeating-linear-gradient(90deg,
+      var(--accent) 0px, var(--accent) 5px,
+      transparent 5px, transparent 8px);
     transition:filter .15s ease;
   }
   .skill-row:hover .skill-fill{ filter:brightness(1.25); }
@@ -208,7 +220,7 @@
     transition:border-color .15s ease, transform .15s ease;
   }
   .project:hover{ border-color:var(--accent-dim); transform:translateY(-2px); }
-  .project .name{ font-family:var(--mono); font-size:.92rem; }
+  .project .name{ font-family:var(--mono); font-size:.92rem; overflow-wrap:anywhere; }
   .project .desc{ color:var(--text-dim); font-size:.88rem; }
 
   /* Summary block under Projects */
@@ -226,7 +238,13 @@
 
   @media (max-width:860px){
     .hero-split{ grid-template-columns:1fr; }
-    .exp-split{ grid-template-columns:1fr; }
+    .exp-split{
+      grid-template-columns:1fr;
+      grid-template-areas:
+        "exp"
+        "proj"
+        "side";
+    }
   }
 
   @media (max-width:640px){
@@ -234,15 +252,52 @@
     .hero-split{ padding:40px 0 32px; }
     .stats-row{ grid-template-columns:repeat(2,1fr); }
     footer{ flex-direction:column; }
+    .project{ flex-direction:column; align-items:flex-start; }
+    .btn{ padding:10px 16px; }
+  }
+
+  @media (max-width:400px){
+    main{ padding:0 16px; }
+    .hero h1{ font-size:2rem; }
   }
 
   @media print{
+    @page{ margin:0.5in; }
     .utility-bar{ display:none; }
-    body{ background:#fff; color:#111; }
+    body{ background:#fff; color:#111; font-size:13px; line-height:1.35; overflow-x:visible; }
     .hero-split, section.block{ border-color:#ccc; }
     a{ color:#111; text-decoration:underline; }
     .side-card, .card, .project, .exp-item, .stat, .summary-block{ background:#fff; border-color:#ccc; }
-    .hero-split, .exp-split{ grid-template-columns:1fr; }
+    .rainbow-name{ background:none; -webkit-background-clip:unset; background-clip:unset; color:#0d6b53; }
+    .skill-fill, .status-pill .dot{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .side-card, .card, .exp-item, .stat, .project, .summary-block{ break-inside:avoid; page-break-inside:avoid; }
+    .hero-split, .exp-split{ grid-template-columns:1fr 210px; gap:16px; }
+    .exp-split{
+      grid-template-areas:
+        "exp side"
+        "exp proj";
+    }
+    .hero h1{ font-size:1.9rem; }
+    .section-head h2{ font-size:1.25rem; }
+    section.block{ padding:10px 0; }
+    section.block:first-of-type{ padding-top:8px; }
+    .hero-split{ padding:8px 0; }
+    .stats-row{ padding:10px 0; gap:8px; }
+    .side-col{ gap:8px; }
+    .side-card{ padding:8px 10px; }
+    .skill-row{ margin-bottom:3px; gap:8px; }
+    .card{ padding:10px; }
+    .card-grid{ gap:8px; }
+    .exp-item{ padding:10px 12px; margin-bottom:8px; }
+    .exp-item ul{ margin-top:5px; }
+    .exp-item li{ margin-bottom:2px; }
+    .exp-blurb{ margin-top:2px; }
+    .project-list{ gap:6px; }
+    .project{ padding:8px 10px; flex-direction:column; align-items:flex-start; gap:2px; }
+    .summary-block{ padding:10px; margin-top:10px; }
+    .section-head{ margin-bottom:8px; break-after:avoid; page-break-after:avoid; }
+    .services-intro{ break-after:avoid; page-break-after:avoid; }
+    .built-with{ display:none; }
     .timeline::before, .exp-item::before{ border-color:#111; background:#fff; }
   }
 </style>
@@ -348,7 +403,7 @@
 
   <!-- 03 EXPERIENCE + sidebar -->
   <div class="exp-split">
-    <div>
+    <div class="exp-main">
       <section class="block" id="experience">
         <div class="section-head"><span class="section-num">03</span><h2>💼 Experience</h2></div>
         <div class="timeline">
@@ -409,29 +464,29 @@
           </div>
         </div>
       </section>
-
-      <section class="block" id="projects">
-        <div class="section-head"><span class="section-num">04</span><h2>🗃️ Selected Projects</h2></div>
-        <div class="project-list">
-          <div class="project">
-            <span class="name">🔗 <a href="https://github.com/rahmcrae/finance-data-project-1" target="_blank" rel="noopener">finance-data-project-1</a></span>
-            <span class="desc">Financial data ingestion pipeline from API via Airflow.</span>
-          </div>
-          <div class="project">
-            <span class="name">🔗 <a href="https://github.com/rahmcrae/analytics_engineer_porfolio_project_1" target="_blank" rel="noopener">analytics_engineer_porfolio_project_1</a></span>
-            <span class="desc">Ingestion pipeline from API to S3.</span>
-          </div>
-        </div>
-        <div class="summary-block">
-          <p>
-            🧾 <strong>Summary:</strong> Senior Analytics Engineer with 15+ years in data, 5+ specifically in
-            analytics engineering — data transformation, warehousing, orchestration, semantic layers, and the
-            AI-ready foundations that sit under them. Also an independent consultant, a former data analytics
-            instructor, and a mostly-willing employee of two cats and a Yorkie.
-          </p>
-        </div>
-      </section>
     </div>
+
+    <section class="block" id="projects">
+      <div class="section-head"><span class="section-num">04</span><h2>🗃️ Selected Projects</h2></div>
+      <div class="project-list">
+        <div class="project">
+          <span class="name">🔗 <a href="https://github.com/rahmcrae/finance-data-project-1" target="_blank" rel="noopener">finance-data-project-1</a></span>
+          <span class="desc">Financial data ingestion pipeline from API via Airflow.</span>
+        </div>
+        <div class="project">
+          <span class="name">🔗 <a href="https://github.com/rahmcrae/analytics_engineer_porfolio_project_1" target="_blank" rel="noopener">analytics_engineer_porfolio_project_1</a></span>
+          <span class="desc">Ingestion pipeline from API to S3.</span>
+        </div>
+      </div>
+      <div class="summary-block">
+        <p>
+          🧾 <strong>Summary:</strong> Senior Analytics Engineer with 15+ years in data, 5+ specifically in
+          analytics engineering — data transformation, warehousing, orchestration, semantic layers, and the
+          AI-ready foundations that sit under them. Also an independent consultant, a former data analytics
+          instructor, and a mostly-willing employee of two cats and a Yorkie.
+        </p>
+      </div>
+    </section>
 
     <aside class="side-col">
       <div class="side-card">
@@ -484,7 +539,7 @@
 
   <footer>
     <span>© <span id="year"></span> Rah A. McRae</span>
-    <span>Built with vanilla HTML/CSS/JS · Hosted on GitHub Pages</span>
+    <span class="built-with">Built with vanilla HTML/CSS/JS · Hosted on GitHub Pages</span>
   </footer>
 
 </main>
